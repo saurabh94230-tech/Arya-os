@@ -372,7 +372,198 @@
         </footer>
     </div>
 
-    <!-- Quick Command Palette Overlay -->
+        <!-- Quick Command Palette Overlay -->
     <div class="cmd-modal-overlay" id="cmdOverlay" onclick="closeCmdModal(event)">
         <div class="cmd-modal">
-            <input type="text" class="cmd-modal-input" placeholder="Ty
+            <input type="text" class="cmd-modal-input" placeholder="Type a command or search..." autofocus>
+            <ul class="cmd-modal-list">
+                <li class="cmd-modal-item" onclick="triggerExploit(); closeCmdModal();"><span>⚡ Inject Simulated Memory Exploit</span> <code>EXEC</code></li>
+                <li class="cmd-modal-item" onclick="document.getElementById('cmdInput').focus(); closeCmdModal();"><span>💻 Jump to Shell Prompt</span> <code>SHELL</code></li>
+                <li class="cmd-modal-item" onclick="showNodeDetails(1); closeCmdModal();"><span>🔍 Inspect Telemetry Probe</span> <code>NODE 1</code></li>
+                <li class="cmd-modal-item" onclick="alert('Architect: Saurabh\nSystem: ARYA OS Autonomous Microkernel'); closeCmdModal();"><span>👤 Developer Bio</span> <code>INFO</code></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        let audioEnabled = true;
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            document.getElementById('audioBtn').innerText = audioEnabled ? '🔊 SFX: ON' : '🔇 SFX: OFF';
+        }
+
+        function playBeep(freq, type, duration) {
+            if (!audioEnabled) return;
+            try {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) {}
+        }
+
+        // Live HUD Metrics
+        setInterval(() => {
+            document.getElementById('memUsage').innerText = (140 + Math.floor(Math.random() * 8)) + ' MB';
+            document.getElementById('healLatency').innerText = (1.05 + (Math.random() * 0.25)).toFixed(2) + ' ms';
+            document.getElementById('activeAgents').innerText = (30 + Math.floor(Math.random() * 5)) + ' Threads';
+        }, 2000);
+
+        // Terminal Log Function
+        function appendLog(htmlContent) {
+            const logs = document.getElementById('terminalLogs');
+            logs.innerHTML += `<div class="log-line">${htmlContent}</div>`;
+            logs.scrollTop = logs.scrollHeight;
+        }
+
+        function triggerExploit() {
+            playBeep(200, 'sawtooth', 0.3);
+            appendLog(`<span class="log-danger">[ALERT]</span> Memory Anomaly Injected at Offset 0x7FFF92! Corrupting thread state...`);
+            
+            setTimeout(() => {
+                playBeep(400, 'sine', 0.2);
+                appendLog(`<span class="log-warn">[HEAL]</span> V50 Supreme Overseer triggered recovery protocol...`);
+            }, 600);
+
+            setTimeout(() => {
+                playBeep(800, 'sine', 0.4);
+                appendLog(`<span class="log-success">[OK]</span> Threat neutralized. System state restored in 1.18ms. Zero downtime maintained.`);
+            }, 1200);
+        }
+
+        function handleCommand(e) {
+            if (e.key === 'Enter') {
+                const input = e.target.value.trim().toLowerCase();
+                e.target.value = '';
+                if (!input) return;
+
+                appendLog(`<span style="color: #94a3b8;">arya@overseer:~$ ${input}</span>`);
+
+                if (input === 'help') {
+                    appendLog(`<span class="log-info">[HELP]</span> Commands: status, heal, clear, architect, specs`);
+                } else if (input === 'status') {
+                    appendLog(`<span class="log-success">[SYS]</span> All 32 Agentic threads operational. Ghost Engine running normally.`);
+                } else if (input === 'heal') {
+                    triggerExploit();
+                } else if (input === 'architect') {
+                    appendLog(`<span class="log-info">[INFO]</span> Lead Architect & Creator: Saurabh`);
+                } else if (input === 'clear') {
+                    document.getElementById('terminalLogs').innerHTML = '';
+                } else {
+                    appendLog(`<span class="log-warn">[ERR]</span> Unknown command: '${input}'. Type 'help'.`);
+                }
+            }
+        }
+
+        // Node Inspector
+        const nodeData = {
+            1: { title: "1. Telemetry Probe (Real-time Vectors)", desc: "Uses ring-buffer eBPF hooks to trace OS system calls with near-zero latency overhead (<0.2%)." },
+            2: { title: "2. Anomaly Trap (Zero-Trust Guard)", desc: "Applies heuristic vector clustering to flag unauthorized stack pointer mutations in milliseconds." },
+            3: { title: "3. Sandbox Isolation (Air-gapped Containment)", desc: "Quarantines compromised thread execution contexts inside lightweight WebAssembly sandboxes." },
+            4: { title: "4. Vector Rollback (Atomic Auto-Repair)", desc: "Executes copy-on-write RAM snapshot restore to revert corrupt states seamlessly without rebooting." }
+        };
+
+        function showNodeDetails(id) {
+            playBeep(600, 'triangle', 0.1);
+            const box = document.getElementById('nodeDetails');
+            document.getElementById('nodeTitle').innerText = nodeData[id].title;
+            document.getElementById('nodeDesc').innerText = nodeData[id].desc;
+            box.style.display = 'block';
+        }
+
+        // Command Palette Overlay (Ctrl+K)
+        window.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('cmdOverlay').style.display = 'flex';
+            }
+        });
+
+        function closeCmdModal(e) {
+            if (!e || e.target.id === 'cmdOverlay') {
+                document.getElementById('cmdOverlay').style.display = 'none';
+            }
+        }
+
+        // Particle Background
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        for (let i = 0; i < 40; i++) {
+            particles.push({
+                x: Math.random() * width, y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5
+            });
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'rgba(56, 189, 248, 0.3)';
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.08)';
+
+            particles.forEach((p, index) => {
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI * 2); ctx.fill();
+
+                for (let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 150) {
+                        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // 3D Holographic Matrix Canvas
+        const holoCanvas = document.getElementById('holoCanvas');
+        const hctx = holoCanvas.getContext('2d');
+        let hAngle = 0;
+
+        function animateHologram() {
+            hctx.clearRect(0, 0, width, height);
+            const cx = width / 2;
+            const cy = height / 3;
+            const radius = 180;
+
+            hctx.strokeStyle = 'rgba(168, 85, 247, 0.2)';
+            hctx.lineWidth = 1;
+
+            for (let i = 0; i < 12; i++) {
+                hctx.beginPath();
+                const angle = hAngle + (i * Math.PI / 6);
+                const rx = radius * Math.cos(angle);
+                hctx.ellipse(cx, cy, Math.abs(rx), radius, angle, 0, Math.PI * 2);
+                hctx.stroke();
+            }
+
+            hAngle += 0.005;
+            requestAnimationFrame(animateHologram);
+        }
+        animateHologram();
+    </script>
+</body>
+</html
