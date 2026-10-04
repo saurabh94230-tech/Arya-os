@@ -50,12 +50,12 @@
         .glow-1 { top: -100px; left: -100px; background: var(--cyan-glow); }
         .glow-2 { bottom: -100px; right: -100px; background: var(--purple-glow); }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
+        .container { max-width: 1150px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
 
         /* Header */
         header {
             display: flex; justify-content: space-between; align-items: center;
-            padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 40px;
+            padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 30px;
         }
         .logo-title {
             font-size: 1.8rem; font-weight: 900; letter-spacing: 3px;
@@ -79,7 +79,6 @@
 
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* Command Palette Tip */
         .cmd-hint {
             text-align: center; margin-bottom: 24px; font-size: 0.85rem; color: var(--text-muted);
         }
@@ -113,7 +112,24 @@
         .metric-title { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
         .metric-value { font-size: 1.6rem; font-weight: 800; color: var(--cyan-glow); font-family: monospace; margin-top: 4px; }
 
-        /* Terminal Section */
+        /* Interactive Memory Grid Visualizer */
+        .mem-visualizer-section {
+            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px;
+            padding: 24px; margin-bottom: 40px; backdrop-filter: blur(12px);
+        }
+        .mem-visualizer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .mem-grid {
+            display: grid; grid-template-columns: repeat(32, 1fr); gap: 4px; background: rgba(2, 6, 23, 0.6);
+            padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .mem-block { height: 16px; border-radius: 2px; background: rgba(56, 189, 248, 0.2); transition: all 0.3s ease; }
+        .mem-block.active { background: var(--cyan-glow); box-shadow: 0 0 6px var(--cyan-glow); }
+        .mem-block.corrupt { background: var(--red-alert); box-shadow: 0 0 8px var(--red-alert); animation: blink 0.5s infinite; }
+        .mem-block.healed { background: var(--emerald-accent); box-shadow: 0 0 8px var(--emerald-accent); }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* Terminal & Shell Section */
         .terminal-box {
             background: #030712; border: 1px solid var(--card-border); border-radius: 14px;
             padding: 24px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
@@ -146,6 +162,28 @@
         .terminal-input-line { display: flex; gap: 8px; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 8px; }
         .prompt-symbol { color: var(--emerald-accent); font-weight: bold; }
         .cmd-input { background: transparent; border: none; outline: none; color: #fff; width: 100%; font-family: inherit; font-size: 0.9rem; }
+
+        /* Neural Chat Agent Playground */
+        .agent-playground {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 16px; padding: 28px; margin-bottom: 50px; backdrop-filter: blur(12px);
+        }
+        .chat-container {
+            background: rgba(2, 6, 23, 0.8); border: 1px solid var(--card-border);
+            border-radius: 12px; height: 220px; overflow-y: auto; padding: 16px; margin: 16px 0;
+        }
+        .chat-msg { margin-bottom: 12px; font-size: 0.9rem; }
+        .chat-user { color: var(--cyan-glow); font-weight: 600; }
+        .chat-arya { color: #c084fc; font-weight: 600; }
+        .chat-input-box { display: flex; gap: 10px; }
+        .chat-input {
+            flex: 1; background: rgba(15, 23, 42, 0.8); border: 1px solid var(--card-border);
+            border-radius: 8px; padding: 10px 14px; color: #fff; outline: none;
+        }
+        .chat-send-btn {
+            background: linear-gradient(135deg, #0284c7, #a855f7); color: #fff;
+            border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer;
+        }
 
         /* Architecture Flow */
         .architecture-flow { margin-bottom: 60px; text-align: center; }
@@ -273,6 +311,15 @@
             </div>
         </section>
 
+        <!-- Dynamic Memory Grid Visualizer -->
+        <section class="mem-visualizer-section">
+            <div class="mem-visualizer-header">
+                <h3>Live Memory Matrix & Heap Overseer</h3>
+                <button class="sim-btn" onclick="triggerExploit()">[Trigger Memory Anomaly Test]</button>
+            </div>
+            <div class="mem-grid" id="memGrid"></div>
+        </section>
+
         <!-- Terminal Box -->
         <section class="terminal-box">
             <div class="terminal-header">
@@ -288,7 +335,7 @@
                 <div class="log-line"><span class="log-info">[INIT]</span> Initializing SPECTRE-∞ Ghost Engine Event Loop...</div>
                 <div class="log-line"><span class="log-info">[KERN]</span> Post-Quantum Zero-Trust Access Matrix loaded into memory space.</div>
                 <div class="log-line"><span class="log-success">[STATUS]</span> System initialized. Zero threats detected. Interactive shell ready.</div>
-                <div class="log-line"><span class="log-info">[HINT]</span> Type 'help', 'status', or 'heal' in the prompt below.</div>
+                <div class="log-line"><span class="log-info">[HINT]</span> Type 'help', 'status', 'benchmark', or 'heal' in the prompt below.</div>
             </div>
             <div class="terminal-input-line">
                 <span class="prompt-symbol">arya@overseer:~$</span>
@@ -296,7 +343,20 @@
             </div>
         </section>
 
-        <!-- Architecture Flow -->
+        <!-- Neural Chat Playground -->
+        <section class="agent-playground">
+            <h3>ARYA AI Core Agent Playground</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Interact directly with the local microkernel agent thread.</p>
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-msg"><span class="chat-arya">ARYA OS:</span> Greetings. I am the autonomous Core Agent. How can I assist your system orchestration today?</div>
+            </div>
+            <div class="chat-input-box">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Ask ARYA Core (e.g. 'How does self-healing work?')..." onkeydown="if(event.key==='Enter') sendAgentChat()">
+                <button class="chat-send-btn" onclick="sendAgentChat()">Send</button>
+            </div>
+        </section>
+
+         <!-- Architecture Flow -->
         <section class="architecture-flow">
             <h2>Autonomous Pipeline Architecture</h2>
             <p class="sub-heading">Click on any pipeline node to inspect technical parameters</p>
@@ -372,7 +432,7 @@
         </footer>
     </div>
 
-        <!-- Quick Command Palette Overlay -->
+    <!-- Quick Command Palette Overlay -->
     <div class="cmd-modal-overlay" id="cmdOverlay" onclick="closeCmdModal(event)">
         <div class="cmd-modal">
             <input type="text" class="cmd-modal-input" placeholder="Type a command or search..." autofocus>
@@ -412,6 +472,23 @@
             } catch(e) {}
         }
 
+        // Generate Memory Grid Blocks
+        const memGrid = document.getElementById('memGrid');
+        for(let i = 0; i < 128; i++) {
+            const block = document.createElement('div');
+            block.className = 'mem-block' + (Math.random() > 0.7 ? ' active' : '');
+            block.id = 'block-' + i;
+            memGrid.appendChild(block);
+        }
+
+        setInterval(() => {
+            const idx = Math.floor(Math.random() * 128);
+            const b = document.getElementById('block-' + idx);
+            if(!b.classList.contains('corrupt')) {
+                b.classList.toggle('active');
+            }
+        }, 150);
+
         // Live HUD Metrics
         setInterval(() => {
             document.getElementById('memUsage').innerText = (140 + Math.floor(Math.random() * 8)) + ' MB';
@@ -428,8 +505,15 @@
 
         function triggerExploit() {
             playBeep(200, 'sawtooth', 0.3);
-            appendLog(`<span class="log-danger">[ALERT]</span> Memory Anomaly Injected at Offset 0x7FFF92! Corrupting thread state...`);
+            appendLog(`<span class="log-danger">[ALERT]</span> Memory Anomaly Injected at Offset 0x7FFF92! Corrupting heap state...`);
             
+            // Highlight random blocks red
+            const corruptIndices = [12, 13, 14, 45, 46, 88, 89];
+            corruptIndices.forEach(idx => {
+                const b = document.getElementById('block-' + idx);
+                if(b) b.className = 'mem-block corrupt';
+            });
+
             setTimeout(() => {
                 playBeep(400, 'sine', 0.2);
                 appendLog(`<span class="log-warn">[HEAL]</span> V50 Supreme Overseer triggered recovery protocol...`);
@@ -438,6 +522,10 @@
             setTimeout(() => {
                 playBeep(800, 'sine', 0.4);
                 appendLog(`<span class="log-success">[OK]</span> Threat neutralized. System state restored in 1.18ms. Zero downtime maintained.`);
+                corruptIndices.forEach(idx => {
+                    const b = document.getElementById('block-' + idx);
+                    if(b) b.className = 'mem-block healed';
+                });
             }, 1200);
         }
 
@@ -450,11 +538,16 @@
                 appendLog(`<span style="color: #94a3b8;">arya@overseer:~$ ${input}</span>`);
 
                 if (input === 'help') {
-                    appendLog(`<span class="log-info">[HELP]</span> Commands: status, heal, clear, architect, specs`);
+                    appendLog(`<span class="log-info">[HELP]</span> Commands: status, heal, benchmark, clear, architect, specs`);
                 } else if (input === 'status') {
                     appendLog(`<span class="log-success">[SYS]</span> All 32 Agentic threads operational. Ghost Engine running normally.`);
                 } else if (input === 'heal') {
                     triggerExploit();
+                } else if (input === 'benchmark') {
+                    appendLog(`<span class="log-info">[BENCH]</span> Running Microkernel Stress Test...`);
+                    setTimeout(() => {
+                        appendLog(`<span class="log-success">[BENCH]</span> Score: 98,420 Ops/sec | Latency: 1.12ms | Zero Memory Leaks.`);
+                    }, 800);
                 } else if (input === 'architect') {
                     appendLog(`<span class="log-info">[INFO]</span> Lead Architect & Creator: Saurabh`);
                 } else if (input === 'clear') {
@@ -463,6 +556,28 @@
                     appendLog(`<span class="log-warn">[ERR]</span> Unknown command: '${input}'. Type 'help'.`);
                 }
             }
+        }
+
+        // Neural Chat System
+        function sendAgentChat() {
+            const input = document.getElementById('chatInput');
+            const val = input.value.trim();
+            if(!val) return;
+
+            const chat = document.getElementById('chatContainer');
+            chat.innerHTML += `<div class="chat-msg"><span class="chat-user">You:</span> ${val}</div>`;
+            input.value = '';
+
+            setTimeout(() => {
+                let reply = "I am orchestrating execution pipelines locally. Zero cloud round-trips detected.";
+                if(val.toLowerCase().includes('heal') || val.toLowerCase().includes('self')) {
+                    reply = "Self-healing relies on eBPF telemetry hooks combined with atomic copy-on-write memory snapshots.";
+                } else if(val.toLowerCase().includes('who') || val.toLowerCase().includes('saurabh')) {
+                    reply = "ARYA OS was architected by Saurabh to pioneer local-first autonomous agent execution.";
+                }
+                chat.innerHTML += `<div class="chat-msg"><span class="chat-arya">ARYA OS:</span> ${reply}</div>`;
+                chat.scrollTop = chat.scrollHeight;
+            }, 600);
         }
 
         // Node Inspector
@@ -538,7 +653,7 @@
         }
         animateParticles();
 
-        // 3D Holographic Matrix Canvas
+        // 3D Holographic Canvas
         const holoCanvas = document.getElementById('holoCanvas');
         const hctx = holoCanvas.getContext('2d');
         let hAngle = 0;
@@ -566,4 +681,4 @@
         animateHologram();
     </script>
 </body>
-</html
+</html>
