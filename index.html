@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARYA OS | The Self-Healing AI Operating System</title>
-    <meta name="description" content="ARYA OS - Next-Generation Autonomous Self-Healing AI Operating System. Architected by Saurabh. Post-Quantum Zero-Trust Core & SPECTRE-∞ Ghost Engine.">
+    <title>ARYA OS | Autonomous Self-Healing AI Operating System</title>
+    <meta name="description" content="ARYA OS - Next-Generation Autonomous Self-Healing AI Operating System. Architected by Saurabh. Featuring SPECTRE-∞ Ghost Engine and V50 Supreme Overseer.">
     
-    <!-- Schema.org Technical Metadata for Search Engines -->
+    <!-- Schema.org Metadata -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -25,300 +25,225 @@
 
     <style>
         :root {
-            --bg-dark: #030712;
-            --card-bg: rgba(17, 24, 39, 0.7);
-            --card-border: rgba(55, 65, 81, 0.6);
-            --cyan-glow: #06b6d4;
-            --purple-glow: #8b5cf6;
+            --bg-dark: #020617;
+            --card-bg: rgba(15, 23, 42, 0.75);
+            --card-border: rgba(51, 65, 85, 0.7);
+            --cyan-glow: #38bdf8;
+            --purple-glow: #a855f7;
             --emerald-accent: #10b981;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
+            --red-alert: #f43f5e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; overflow-x: hidden; position: relative; }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        .grid-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: -2;
-        }
+        #particleCanvas, #holoCanvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; }
+        #particleCanvas { z-index: -2; }
+        #holoCanvas { z-index: -1; opacity: 0.35; }
 
         .ambient-glow {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            filter: blur(140px);
-            opacity: 0.15;
-            z-index: -1;
-            pointer-events: none;
+            position: fixed; width: 600px; height: 600px; border-radius: 50%;
+            filter: blur(160px); opacity: 0.18; z-index: -1; pointer-events: none;
         }
-
         .glow-1 { top: -100px; left: -100px; background: var(--cyan-glow); }
         .glow-2 { bottom: -100px; right: -100px; background: var(--purple-glow); }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 24px;
-        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; position: relative; z-index: 1; }
 
+        /* Header */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 24px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            margin-bottom: 60px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding-bottom: 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 40px;
         }
-
         .logo-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            background: linear-gradient(135deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.8rem; font-weight: 900; letter-spacing: 3px;
+            background: linear-gradient(135deg, #38bdf8, #c084fc);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        .header-controls { display: flex; align-items: center; gap: 12px; }
+        .audio-toggle {
+            background: rgba(30, 41, 59, 0.6); border: 1px solid var(--card-border);
+            color: var(--text-muted); padding: 6px 12px; border-radius: 20px;
+            font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease;
+        }
+        .audio-toggle:hover { color: #fff; border-color: var(--cyan-glow); }
 
         .badge {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: var(--emerald-accent);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--emerald-accent); padding: 6px 14px; border-radius: 20px;
+            font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px;
+        }
+        .pulse-dot { width: 8px; height: 8px; background-color: var(--emerald-accent); border-radius: 50%; box-shadow: 0 0 12px var(--emerald-accent); animation: pulse 1.5s infinite; }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* Command Palette Tip */
+        .cmd-hint {
+            text-align: center; margin-bottom: 24px; font-size: 0.85rem; color: var(--text-muted);
+        }
+        .key-badge {
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #fff;
         }
 
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--emerald-accent);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--emerald-accent);
-        }
-
-        .hero {
-            text-align: center;
-            margin-bottom: 70px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            line-height: 1.15;
-            margin-bottom: 20px;
-            background: linear-gradient(180deg, #ffffff 0%, #9ca3af 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
+        /* Hero */
+        .hero { text-align: center; margin-bottom: 40px; }
         .hero .architect-tag {
-            color: var(--cyan-glow);
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 24px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            color: var(--cyan-glow); font-size: 1.1rem; font-weight: 700;
+            margin-bottom: 16px; text-transform: uppercase; letter-spacing: 2px;
         }
-
-        .hero p {
-            max-width: 750px;
-            margin: 0 auto 32px auto;
-            color: var(--text-muted);
-            font-size: 1.15rem;
+        .hero h1 {
+            font-size: 3.5rem; font-weight: 900; line-height: 1.15; margin-bottom: 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        .hero p { max-width: 780px; margin: 0 auto 32px auto; color: var(--text-muted); font-size: 1.15rem; }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-            margin-bottom: 60px;
+        /* Metrics HUD */
+        .metrics-hud {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;
+            margin-bottom: 40px;
         }
-
-        .glass-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
-            padding: 32px;
-            transition: all 0.3s ease;
+        .metric-card {
+            background: rgba(15, 23, 42, 0.6); border: 1px solid var(--card-border);
+            border-radius: 12px; padding: 16px; text-align: center; backdrop-filter: blur(8px);
         }
+        .metric-title { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
+        .metric-value { font-size: 1.6rem; font-weight: 800; color: var(--cyan-glow); font-family: monospace; margin-top: 4px; }
 
-        .glass-card:hover {
-            border-color: rgba(56, 189, 248, 0.4);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .card-icon {
-            font-size: 1.8rem;
-            margin-bottom: 16px;
-        }
-
-        .glass-card h3 {
-            font-size: 1.35rem;
-            color: #f9fafb;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-
-        .glass-card p {
-            color: var(--text-muted);
-            font-size: 0.98rem;
-            line-height: 1.6;
-        }
-
+        /* Terminal Section */
         .terminal-box {
-            background: #090d16;
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 24px;
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-            font-size: 0.9rem;
-            color: #d1d5db;
-            margin-bottom: 60px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            background: #030712; border: 1px solid var(--card-border); border-radius: 14px;
+            padding: 24px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.9rem; color: #e2e8f0; margin-bottom: 50px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); position: relative;
         }
-
         .terminal-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
-
+        .terminal-controls { display: flex; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .red { background: #ef4444; }
-        .yellow { background: #f59e0b; }
-        .green { background: #10b981; }
-
-        .terminal-title {
-            margin-left: 12px;
-            color: #6b7280;
-            font-size: 0.8rem;
+        .red { background: #f43f5e; } .yellow { background: #f59e0b; } .green { background: #10b981; }
+        .terminal-title { color: #64748b; font-size: 0.8rem; }
+        
+        .sim-btn {
+            background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.4);
+            color: var(--red-alert); font-weight: 600; padding: 6px 14px; border-radius: 6px;
+            cursor: pointer; font-size: 0.8rem; transition: all 0.2s ease;
         }
+        .sim-btn:hover { background: rgba(244, 63, 94, 0.3); }
 
-        .log-line { margin-bottom: 8px; }
+        .terminal-body { height: 200px; overflow-y: auto; margin-bottom: 12px; scroll-behavior: smooth; }
+        .log-line { margin-bottom: 6px; word-break: break-all; }
         .log-info { color: #38bdf8; }
         .log-warn { color: #fbbf24; }
-        .log-success { color: #34d399; }
-        .log-bold { font-weight: bold; color: #fff; }
+        .log-danger { color: #f43f5e; font-weight: bold; }
+        .log-success { color: #34d399; font-weight: bold; }
 
-        .specs-section {
-            margin-bottom: 60px;
+        .terminal-input-line { display: flex; gap: 8px; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 8px; }
+        .prompt-symbol { color: var(--emerald-accent); font-weight: bold; }
+        .cmd-input { background: transparent; border: none; outline: none; color: #fff; width: 100%; font-family: inherit; font-size: 0.9rem; }
+
+        /* Architecture Flow */
+        .architecture-flow { margin-bottom: 60px; text-align: center; }
+        .architecture-flow h2 { font-size: 2rem; margin-bottom: 8px; }
+        .sub-heading { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; }
+        .flow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+        .flow-step {
+            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px;
+            padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s ease;
+        }
+        .flow-step:hover, .flow-step.active { border-color: var(--cyan-glow); background: rgba(30, 41, 59, 0.9); transform: translateY(-3px); }
+        .flow-step h4 { color: var(--cyan-glow); margin-bottom: 8px; }
+        .flow-step p { color: var(--text-muted); font-size: 0.85rem; }
+
+        .node-details-box {
+            background: rgba(15, 23, 42, 0.9); border: 1px dashed var(--cyan-glow);
+            border-radius: 12px; padding: 20px; margin-top: 16px; text-align: left; display: none;
         }
 
-        .specs-section h2 {
-            font-size: 2rem;
-            margin-bottom: 24px;
-            text-align: center;
+        /* Feature Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 60px; }
+        .glass-card {
+            background: var(--card-bg); border: 1px solid var(--card-border); backdrop-filter: blur(12px);
+            border-radius: 16px; padding: 32px; transition: all 0.3s ease;
         }
+        .glass-card:hover { border-color: rgba(56, 189, 248, 0.4); transform: translateY(-4px); }
+        .card-icon { font-size: 1.8rem; margin-bottom: 16px; }
+        .glass-card h3 { font-size: 1.35rem; color: #f8fafc; margin-bottom: 12px; }
+        .glass-card p { color: var(--text-muted); font-size: 0.98rem; }
 
         .spec-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--card-border);
+            width: 100%; border-collapse: collapse; background: var(--card-bg);
+            border-radius: 12px; overflow: hidden; border: 1px solid var(--card-border); margin-bottom: 60px;
         }
+        .spec-table th, .spec-table td { padding: 16px 24px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .spec-table th { background: rgba(30, 41, 59, 0.6); color: var(--cyan-glow); font-size: 0.9rem; text-transform: uppercase; }
 
-        .spec-table th, .spec-table td {
-            padding: 16px 24px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        /* Modal Palette */
+        .cmd-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(8px);
+            display: none; justify-content: center; align-items: center; z-index: 100;
         }
-
-        .spec-table th {
-            background: rgba(31, 41, 55, 0.5);
-            color: var(--cyan-glow);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .cmd-modal {
+            background: #0f172a; border: 1px solid var(--card-border); border-radius: 16px;
+            width: 90%; max-width: 550px; padding: 20px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
         }
-
-        .spec-table td {
-            color: var(--text-main);
-            font-size: 0.95rem;
+        .cmd-modal-input {
+            width: 100%; background: #020617; border: 1px solid var(--card-border);
+            border-radius: 8px; padding: 12px 16px; color: #fff; font-size: 1rem; outline: none; margin-bottom: 16px;
         }
+        .cmd-modal-list { list-style: none; }
+        .cmd-modal-item {
+            padding: 10px 14px; border-radius: 6px; cursor: pointer; color: var(--text-muted);
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem;
+        }
+        .cmd-modal-item:hover { background: rgba(56, 189, 248, 0.1); color: var(--cyan-glow); }
 
+        /* Form Section */
         .cta-container {
-            text-align: center;
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(139, 92, 246, 0.1));
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            border-radius: 20px;
-            padding: 48px 24px;
+            text-align: center; background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(168, 85, 247, 0.08));
+            border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 20px; padding: 48px 24px;
         }
-
+        .waitlist-form { display: flex; justify-content: center; gap: 12px; max-width: 500px; margin: 24px auto 0 auto; flex-wrap: wrap; }
+        .waitlist-input {
+            background: rgba(2, 6, 23, 0.8); border: 1px solid var(--card-border); padding: 12px 18px;
+            border-radius: 8px; color: #fff; width: 65%; font-size: 0.95rem; outline: none;
+        }
+        .waitlist-input:focus { border-color: var(--cyan-glow); }
         .cta-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #0284c7, #6366f1);
-            color: #ffffff;
-            font-weight: 700;
-            padding: 14px 36px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-size: 1rem;
-            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3);
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #0284c7, #7c3aed); color: #ffffff; font-weight: 700;
+            padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.95rem; transition: transform 0.2s;
         }
+        .cta-btn:hover { transform: scale(1.03); }
 
-        .cta-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(2, 132, 199, 0.5);
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 60px;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
+        footer { text-align: center; margin-top: 60px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.05); color: var(--text-muted); font-size: 0.85rem; }
     </style>
 </head>
 <body>
-    <div class="grid-bg"></div>
+    <canvas id="particleCanvas"></canvas>
+    <canvas id="holoCanvas"></canvas>
+
     <div class="ambient-glow glow-1"></div>
     <div class="ambient-glow glow-2"></div>
 
     <div class="container">
         <header>
             <div class="logo-title">ARYA OS</div>
-            <div class="badge">
-                <span class="pulse-dot"></span>
-                AUTONOMOUS STATE ACTIVE
+            <div class="header-controls">
+                <button class="audio-toggle" id="audioBtn" onclick="toggleAudio()">🔊 SFX: ON</button>
+                <div class="badge">
+                    <span class="pulse-dot"></span>
+                    AUTONOMOUS STATE ACTIVE
+                </div>
             </div>
         </header>
+
+        <div class="cmd-hint">Press <span class="key-badge">Ctrl + K</span> or <span class="key-badge">Cmd + K</span> for Quick Executive Command Palette</div>
 
         <section class="hero">
             <div class="architect-tag">Created & Architected by Saurabh</div>
@@ -328,78 +253,126 @@
             </p>
         </section>
 
+        <!-- Live Metrics HUD -->
+        <section class="metrics-hud">
+            <div class="metric-card">
+                <div class="metric-title">Kernel Memory Usage</div>
+                <div class="metric-value" id="memUsage">142 MB</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Self-Healing Latency</div>
+                <div class="metric-value" id="healLatency">1.18 ms</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Active AI Agents</div>
+                <div class="metric-value" id="activeAgents">32 Threads</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Overseer Health</div>
+                <div class="metric-value" style="color: var(--emerald-accent);">99.99%</div>
+            </div>
+        </section>
+
+        <!-- Terminal Box -->
         <section class="terminal-box">
             <div class="terminal-header">
-                <span class="dot red"></span>
-                <span class="dot yellow"></span>
-                <span class="dot green"></span>
-                <span class="terminal-title">v50-supreme-overseer // real-time-telemetry-loop</span>
+                <div class="terminal-controls">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">v50-supreme-overseer // interactive-shell</div>
+                <button class="sim-btn" onclick="triggerExploit()">[Inject Memory Threat]</button>
             </div>
-            <div class="log-line"><span class="log-info">[INIT]</span> Initializing SPECTRE-∞ Ghost Engine Event Loop...</div>
-            <div class="log-line"><span class="log-info">[KERN]</span> Post-Quantum Zero-Trust Access Matrix loaded into isolated memory space.</div>
-            <div class="log-line"><span class="log-warn">[WARN]</span> Memory Anomaly Detected: Unauthorized thread injection in vector offset 0x7FFF92.</div>
-            <div class="log-line"><span class="log-info">[HEAL]</span> V50 Supreme Overseer triggered deterministic recovery protocol...</div>
-            <div class="log-line"><span class="log-success">[OK]</span> Corrupted thread isolated. System state rolled back to safe vector snapshot in 1.2ms.</div>
-            <div class="log-line"><span class="log-bold">[SYSTEM STATUS]</span> 100% Operational. Continuous AI Self-Healing Active.</div>
+            <div class="terminal-body" id="terminalLogs">
+                <div class="log-line"><span class="log-info">[INIT]</span> Initializing SPECTRE-∞ Ghost Engine Event Loop...</div>
+                <div class="log-line"><span class="log-info">[KERN]</span> Post-Quantum Zero-Trust Access Matrix loaded into memory space.</div>
+                <div class="log-line"><span class="log-success">[STATUS]</span> System initialized. Zero threats detected. Interactive shell ready.</div>
+                <div class="log-line"><span class="log-info">[HINT]</span> Type 'help', 'status', or 'heal' in the prompt below.</div>
+            </div>
+            <div class="terminal-input-line">
+                <span class="prompt-symbol">arya@overseer:~$</span>
+                <input type="text" class="cmd-input" id="cmdInput" placeholder="Enter command..." onkeydown="handleCommand(event)">
+            </div>
+        </section>
+
+        <!-- Architecture Flow -->
+        <section class="architecture-flow">
+            <h2>Autonomous Pipeline Architecture</h2>
+            <p class="sub-heading">Click on any pipeline node to inspect technical parameters</p>
+            <div class="flow-grid">
+                <div class="flow-step" onclick="showNodeDetails(1)">
+                    <h4>1. Telemetry Probe</h4>
+                    <p>Monitors runtime memory offset vectors and process queues.</p>
+                </div>
+                <div class="flow-step" onclick="showNodeDetails(2)">
+                    <h4>2. Anomaly Trap</h4>
+                    <p>Detects unauthorized process injections or memory faults.</p>
+                </div>
+                <div class="flow-step" onclick="showNodeDetails(3)">
+                    <h4>3. Sandbox Isolation</h4>
+                    <p>Instantly isolates untrusted threads into air-gapped memory space.</p>
+                </div>
+                <div class="flow-step" onclick="showNodeDetails(4)">
+                    <h4>4. Vector Rollback</h4>
+                    <p>Restores system state to a safe snapshot in under 2ms.</p>
+                </div>
+            </div>
+
+            <div class="node-details-box" id="nodeDetails">
+                <h3 id="nodeTitle" style="color: var(--cyan-glow); margin-bottom: 8px;">Node Inspector</h3>
+                <p id="nodeDesc" style="color: var(--text-muted); font-size: 0.9rem;"></p>
+            </div>
         </section>
 
         <div class="grid">
             <div class="glass-card">
                 <div class="card-icon">⚡</div>
                 <h3>SPECTRE-∞ Ghost Engine</h3>
-                <p>Asynchronous, high-throughput microkernel event loop enabling multi-agent orchestration without kernel-level process locks.</p>
+                <p>Asynchronous, high-throughput microkernel event loop enabling multi-agent orchestration without process-locking delays.</p>
             </div>
             <div class="glass-card">
                 <div class="card-icon">🛡️</div>
                 <h3>V50 Supreme Overseer</h3>
-                <p>Continuous AI telemetry monitor that automatically heals memory corruptions and restores deterministic system state in milliseconds.</p>
+                <p>Continuous AI telemetry guardian that automatically heals memory corruptions and restores operational state in real-time.</p>
             </div>
             <div class="glass-card">
                 <div class="card-icon">🔐</div>
                 <h3>Post-Quantum Zero-Trust</h3>
-                <p>Air-gapped execution domain utilizing dynamic token evaluation to restrict local agent permissions strictly on need-to-know basis.</p>
+                <p>Air-gapped security domain utilizing dynamic token evaluation to enforce strict cryptographic boundary constraints.</p>
             </div>
         </div>
 
         <section class="specs-section">
-            <h2>Architectural Specifications</h2>
             <table class="spec-table">
                 <thead>
-                    <tr>
-                        <th>Core Dimension</th>
-                        <th>Technical Paradigm</th>
-                    </tr>
+                    <tr><th>Core Dimension</th><th>Technical Paradigm</th></tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Kernel Model</td>
-                        <td>Hybrid AI-Aware Microkernel Concept</td>
-                    </tr>
-                    <tr>
-                        <td>Self-Healing Mechanism</td>
-                        <td>In-Memory Vector Snapshot & Real-Time Telemetry Rollback</td>
-                    </tr>
-                    <tr>
-                        <td>Execution Boundary</td>
-                        <td>Air-Gapped, Local-First Private AI Domain</td>
-                    </tr>
-                    <tr>
-                        <td>Security Framework</td>
-                        <td>Post-Quantum Cryptographic Token Evaluation</td>
-                    </tr>
+                    <tr><td>Kernel Model</td><td>Hybrid AI-Aware Microkernel Architecture</td></tr>
+                    <tr><td>Self-Healing Response</td><td>In-Memory Vector Snapshot & Real-Time Telemetry Rollback</td></tr>
+                    <tr><td>Execution Boundary</td><td>Air-Gapped, Local-First Private AI Domain</td></tr>
+                    <tr><td>Security Framework</td><td>Post-Quantum Cryptographic Token Evaluation</td></tr>
                 </tbody>
             </table>
         </section>
 
+        <!-- Waitlist Form -->
         <section class="cta-container">
-            <h2 style="font-size: 2rem; margin-bottom: 12px;">Explore Official Architectural Registry</h2>
-            <p style="color: var(--text-muted); margin-bottom: 24px;">Source code & core algorithms remain confidential under private stealth development.</p>
-            <a href="https://github.com/saurabh94230-tech/arya-os" class="cta-btn">View Official GitHub Repository</a>
+            <h2>Request Developer SDK & Technical Architecture Specs</h2>
+            <p style="color: var(--text-muted); margin-top: 8px;">Source code remains confidential under local stealth development.</p>
+            <form class="waitlist-form" onsubmit="event.preventDefault(); alert('Request submitted! You will receive developer updates.');">
+                <input type="email" class="waitlist-input" placeholder="Enter developer email..." required>
+                <button type="submit" class="cta-btn">Join Waitlist</button>
+            </form>
         </section>
 
         <footer>
             © 2026 ARYA OS — Architected & Developed by Saurabh. All rights reserved.
         </footer>
     </div>
-</body>
-</html>
+
+    <!-- Quick Command Palette Overlay -->
+    <div class="cmd-modal-overlay" id="cmdOverlay" onclick="closeCmdModal(event)">
+        <div class="cmd-modal">
+            <input type="text" class="cmd-modal-input" placeholder="Ty
