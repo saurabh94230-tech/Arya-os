@@ -3,30 +3,403 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arya OS | Created by Saurabh</title>
+    <title>ARYA OS | The Self-Healing AI Operating System</title>
+    <meta name="description" content="ARYA OS - Next-Generation Autonomous Self-Healing AI Operating System. Architected by Saurabh. Post-Quantum Zero-Trust Core & SPECTRE-∞ Ghost Engine.">
     
-    <!-- Google Schema Markup -->
+    <!-- Schema.org Technical Metadata for Search Engines -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Saurabh",
-      "jobTitle": "Creator & Architect of Arya OS",
-      "knowsAbout": ["Arya OS", "AI Architecture", "Cybersecurity"],
-      "image": "https://saurabh94230-tech.github.io/arya-os/my-photo.jpg"
+      "@type": "SoftwareApplication",
+      "name": "ARYA OS",
+      "operatingSystem": "AI-Native Hybrid Microkernel",
+      "applicationCategory": "OperatingSystem",
+      "author": {
+        "@type": "Person",
+        "name": "Saurabh",
+        "jobTitle": "Creator & Chief Architect of ARYA OS"
+      },
+      "description": "An autonomous self-healing AI operating system architecture engineered for zero-downtime agentic execution, local telemetry vector auto-repair, and post-quantum threat containment."
     }
     </script>
+
+    <style>
+        :root {
+            --bg-dark: #030712;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --card-border: rgba(55, 65, 81, 0.6);
+            --cyan-glow: #06b6d4;
+            --purple-glow: #8b5cf6;
+            --emerald-accent: #10b981;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -2;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.15;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glow-1 { top: -100px; left: -100px; background: var(--cyan-glow); }
+        .glow-2 { bottom: -100px; right: -100px; background: var(--purple-glow); }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 60px;
+        }
+
+        .logo-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .badge {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--emerald-accent);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--emerald-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--emerald-accent);
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero .architect-tag {
+            color: var(--cyan-glow);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .hero p {
+            max-width: 750px;
+            margin: 0 auto 32px auto;
+            color: var(--text-muted);
+            font-size: 1.15rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-icon {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+
+        .glass-card h3 {
+            font-size: 1.35rem;
+            color: #f9fafb;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .glass-card p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+
+        .terminal-box {
+            background: #090d16;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 24px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.9rem;
+            color: #d1d5db;
+            margin-bottom: 60px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ef4444; }
+        .yellow { background: #f59e0b; }
+        .green { background: #10b981; }
+
+        .terminal-title {
+            margin-left: 12px;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+
+        .log-line { margin-bottom: 8px; }
+        .log-info { color: #38bdf8; }
+        .log-warn { color: #fbbf24; }
+        .log-success { color: #34d399; }
+        .log-bold { font-weight: bold; color: #fff; }
+
+        .specs-section {
+            margin-bottom: 60px;
+        }
+
+        .specs-section h2 {
+            font-size: 2rem;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+        }
+
+        .spec-table th, .spec-table td {
+            padding: 16px 24px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .spec-table th {
+            background: rgba(31, 41, 55, 0.5);
+            color: var(--cyan-glow);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .spec-table td {
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .cta-container {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 20px;
+            padding: 48px 24px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #0284c7, #6366f1);
+            color: #ffffff;
+            font-weight: 700;
+            padding: 14px 36px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1rem;
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(2, 132, 199, 0.5);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; padding: 30px; line-height: 1.6; background-color: #0d1117; color: #c9d1d9; max-width: 800px; margin: 0 auto;">
-    <h1 style="color: #58a6ff;">Arya OS</h1>
-    <h3>Created & Architected by Saurabh</h3>
-    <hr style="border-color: #30363d;">
-    <p>Arya OS is an advanced, autonomous self-healing AI operating system architecture engineered for high-security local environments and futuristic computing.</p>
-    <h2>Core Architecture Highlights</h2>
-    <ul>
-        <li><strong>SPECTRE-∞ Ghost Engine:</strong> Autonomous execution and event orchestration.</li>
-        <li><strong>V50 Supreme Overseer:</strong> Continuous health monitoring, anomaly detection, and auto-repair.</li>
-        <li><strong>Post-Quantum Security:</strong> Zero-Trust access control and resilient encryption defenses.</li>
-    </ul>
+<body>
+    <div class="grid-bg"></div>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo-title">ARYA OS</div>
+            <div class="badge">
+                <span class="pulse-dot"></span>
+                AUTONOMOUS STATE ACTIVE
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="architect-tag">Created & Architected by Saurabh</div>
+            <h1>The Self-Healing AI Operating System</h1>
+            <p>
+                An unprecedented local-first operating architecture engineered to autonomously detect runtime anomalies, heal memory corruption in real-time, and execute complex agentic workloads without cloud dependency.
+            </p>
+        </section>
+
+        <section class="terminal-box">
+            <div class="terminal-header">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="terminal-title">v50-supreme-overseer // real-time-telemetry-loop</span>
+            </div>
+            <div class="log-line"><span class="log-info">[INIT]</span> Initializing SPECTRE-∞ Ghost Engine Event Loop...</div>
+            <div class="log-line"><span class="log-info">[KERN]</span> Post-Quantum Zero-Trust Access Matrix loaded into isolated memory space.</div>
+            <div class="log-line"><span class="log-warn">[WARN]</span> Memory Anomaly Detected: Unauthorized thread injection in vector offset 0x7FFF92.</div>
+            <div class="log-line"><span class="log-info">[HEAL]</span> V50 Supreme Overseer triggered deterministic recovery protocol...</div>
+            <div class="log-line"><span class="log-success">[OK]</span> Corrupted thread isolated. System state rolled back to safe vector snapshot in 1.2ms.</div>
+            <div class="log-line"><span class="log-bold">[SYSTEM STATUS]</span> 100% Operational. Continuous AI Self-Healing Active.</div>
+        </section>
+
+        <div class="grid">
+            <div class="glass-card">
+                <div class="card-icon">⚡</div>
+                <h3>SPECTRE-∞ Ghost Engine</h3>
+                <p>Asynchronous, high-throughput microkernel event loop enabling multi-agent orchestration without kernel-level process locks.</p>
+            </div>
+            <div class="glass-card">
+                <div class="card-icon">🛡️</div>
+                <h3>V50 Supreme Overseer</h3>
+                <p>Continuous AI telemetry monitor that automatically heals memory corruptions and restores deterministic system state in milliseconds.</p>
+            </div>
+            <div class="glass-card">
+                <div class="card-icon">🔐</div>
+                <h3>Post-Quantum Zero-Trust</h3>
+                <p>Air-gapped execution domain utilizing dynamic token evaluation to restrict local agent permissions strictly on need-to-know basis.</p>
+            </div>
+        </div>
+
+        <section class="specs-section">
+            <h2>Architectural Specifications</h2>
+            <table class="spec-table">
+                <thead>
+                    <tr>
+                        <th>Core Dimension</th>
+                        <th>Technical Paradigm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Kernel Model</td>
+                        <td>Hybrid AI-Aware Microkernel Concept</td>
+                    </tr>
+                    <tr>
+                        <td>Self-Healing Mechanism</td>
+                        <td>In-Memory Vector Snapshot & Real-Time Telemetry Rollback</td>
+                    </tr>
+                    <tr>
+                        <td>Execution Boundary</td>
+                        <td>Air-Gapped, Local-First Private AI Domain</td>
+                    </tr>
+                    <tr>
+                        <td>Security Framework</td>
+                        <td>Post-Quantum Cryptographic Token Evaluation</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="cta-container">
+            <h2 style="font-size: 2rem; margin-bottom: 12px;">Explore Official Architectural Registry</h2>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">Source code & core algorithms remain confidential under private stealth development.</p>
+            <a href="https://github.com/saurabh94230-tech/arya-os" class="cta-btn">View Official GitHub Repository</a>
+        </section>
+
+        <footer>
+            © 2026 ARYA OS — Architected & Developed by Saurabh. All rights reserved.
+        </footer>
+    </div>
 </body>
 </html>
