@@ -319,3 +319,282 @@ Thousands of possible voices.
 One evolving intelligence.
 
 Created & Developed by Saurabh Tiwari
+ARYA OS — Advanced Capability Showcase
+
+1. 📱 Mobile Ecosystem
+
+ARYA OS is designed to work beyond a single computer.
+
+Current capabilities
+
+- Phone ↔ PC communication
+- Notification synchronization
+- Clipboard synchronization
+- Android Debug Bridge (ADB) integration
+- Mobile-triggered interactions
+- Alerts and remote status communication
+- WhatsApp agent integration
+
+Goal: Turn the phone into an extension of the ARYA environment rather than treating it as a separate device.
+
+---
+
+2. 🧠 Intelligence Layer
+
+ARYA combines multiple intelligence components into one system:
+
+- Brain / AI processing
+- Reasoning
+- Context-based decision making
+- Self-decision mechanisms
+- Self-power AI architecture
+- Multiple AI providers/models
+- Online + local AI integration
+
+The objective is to move beyond simple command-response interaction toward a system capable of evaluating situations and selecting an appropriate action within defined boundaries.
+
+---
+
+3. 👁️ Screen & Visual Intelligence
+
+ARYA includes a visual interaction layer designed to understand information presented on a screen.
+
+Components
+
+- Screen vision
+- Visual analysis
+- Gemini Vision integration
+- OCR through Tesseract
+- Visual information extraction
+
+This allows ARYA to process visual information instead of depending exclusively on text input.
+
+---
+
+4. ⚙️ Controlled Automation
+
+ARYA is designed around controlled execution rather than unrestricted system access.
+
+Permission scopes
+
+READ_FILES
+WRITE_FILES
+RUN_APP
+
+Actions can be separated into defined scopes so that system operations can be controlled.
+
+Emergency control
+
+AYRA STOP
+
+A dedicated stop mechanism is included for interrupting ARYA operations.
+
+---
+
+5. 🔐 Security-First Architecture
+
+Security is a core design principle of ARYA OS.
+
+Security principles
+
+ZERO_TRUST_SCOPES
+SANDBOX_FIRST
+NO_UNAUTHORIZED_FINANCE
+
+The architecture is designed to restrict what ARYA can access or execute instead of assuming that every requested operation should automatically be trusted.
+
+---
+
+6. 🧾 Security Audit System
+
+ARYA includes a dedicated security-auditing layer.
+
+Features
+
+- Security event logging
+- SQLite-based audit storage
+- Cryptographic hash chaining
+- SHA-256 integrity verification
+- Action tracking
+- Allowlist-based control
+
+The purpose is to make important system activity traceable and easier to investigate.
+
+---
+
+7. 🛡️ Protocol Zero
+
+Protocol Zero represents ARYA's security-oriented control layer.
+
+Its purpose is to establish strict boundaries around sensitive operations and system interaction.
+
+The architecture emphasizes:
+
+«Verify → Control → Execute → Audit»
+
+rather than blindly executing every instruction.
+
+---
+
+8. 📴 Local & Offline AI
+
+ARYA is not limited to cloud-only intelligence.
+
+Local AI integration
+
+- Ollama
+- Local LLM support
+- Llama-family models
+- Mistral-family models
+
+This provides a foundation for situations where local processing or reduced dependence on online services is desirable.
+
+---
+
+9. 🔄 High-Availability Voice Core
+
+ARYA's advanced voice architecture includes reliability mechanisms designed to keep voice services available.
+
+Architecture concepts
+
+- Multiple API-key failover
+- Circuit breaker
+- L1/L2 caching
+- WebSocket streaming
+- HMAC-SHA512 validation
+
+The goal is to make the voice layer more resilient when an individual provider or request path becomes unavailable.
+
+---
+
+10. 💬 Communication & Agent Layer
+
+ARYA can integrate with communication workflows.
+
+Included capabilities
+
+- WhatsApp agent
+- Notifications
+- Alerts
+- Voice interaction
+- Phone ↔ PC communication
+- Automated communication workflows
+
+These components allow ARYA to operate as an interaction layer across multiple devices and services.
+
+---
+
+11. 🧠 Knowledge Layer
+
+ARYA includes a dedicated knowledge-storage architecture.
+
+Components
+
+- ChromaDB-based knowledge storage
+- "ayra_knowledge" knowledge layer
+- Persistent information handling
+- Knowledge maintenance/pruning
+
+The system is designed to maintain useful information while controlling unnecessary accumulation.
+
+---
+
+12. 🧩 Modular Architecture
+
+ARYA is built as a collection of specialized components rather than a single monolithic AI function.
+
+High-level structure:
+
+                    ARYA OS
+                       │
+        ┌──────────────┼──────────────┐
+        │              │              │
+      Brain         Vision          Voice
+        │              │              │
+    Reasoning      Screen AI      Voice APIs
+        │              │              │
+        └──────────────┼──────────────┘
+                       │
+                Decision Layer
+                       │
+              Security / Scopes
+                       │
+          ┌────────────┼────────────┐
+          │            │            │
+       Mobile       Automation     Audit
+       Ecosystem       Layer        Layer
+
+---
+
+13. 🚨 Alerts & Safety Controls
+
+ARYA contains mechanisms for controlled operation and system alerts.
+
+These include:
+
+- Operational alerts
+- Security auditing
+- Emergency stop
+- Permission scopes
+- Controlled execution
+- Failover mechanisms
+
+The philosophy is simple:
+
+Power without boundaries is not the goal. Controlled capability is.
+
+---
+
+Public vs Private
+
+Public
+
+The project can publicly demonstrate:
+
+- Capabilities
+- Architecture
+- Features
+- Development progress
+- Demonstrations
+- Screenshots/videos
+- Technical concepts
+- Changelog
+
+Private
+
+The following should remain private:
+
+- Core source code
+- API keys
+- Passwords
+- Tokens
+- ".env" files
+- Private endpoints
+- Sensitive infrastructure details
+- Security secrets
+
+This allows ARYA's capabilities to be demonstrated without exposing the core implementation.
+
+---
+
+Current Philosophy
+
+ARYA OS is being developed as a personal AI + automation + cybersecurity-oriented system.
+
+Its development focuses on combining:
+
+Intelligence + Vision + Voice + Mobile Integration + Automation + Security
+
+into one controlled ecosystem.
+
+---
+
+Creator
+
+Created & Developed by Saurabh Tiwari
+
+ARYA OS is a personal long-term project focused on exploring advanced AI systems, automation, computer interaction, and security-first architecture.
+
+«The implementation stays private.
+The capabilities can be demonstrated.
+The system keeps evolving.»
